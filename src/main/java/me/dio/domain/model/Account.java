@@ -3,6 +3,7 @@ package me.dio.domain.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity(name = "tb_account")
 public class Account {
@@ -21,6 +22,13 @@ public class Account {
 
     @Column(name = "additional_limit", precision = 13, scale = 2)
     private BigDecimal limit;
+
+    @ManyToOne
+    @JoinColumn(name = "bank_id")
+    private Bank bank;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Loan> loans;
 
     public Long getId() {
         return id;
@@ -60,6 +68,22 @@ public class Account {
 
     public void setLimit(BigDecimal limit) {
         this.limit = limit;
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public void setBank(Bank bank) {
+        this.bank = bank;
+    }
+
+    public List<Loan> getLoans() {
+        return loans;
+    }
+
+    public void setLoans(List<Loan> loans) {
+        this.loans = loans;
     }
 
 }

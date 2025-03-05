@@ -25,6 +25,13 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<News> news;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Bank bank;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Loan> loans;
+
+
     public Long getId() {
         return id;
     }
@@ -71,6 +78,22 @@ public class User {
 
     public void setNews(List<News> news) {
         this.news = news;
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public void setBank(Bank bank) {
+        this.bank = bank;
+    }
+
+    public List<Loan> getLoans() {
+        return loans;
+    }
+
+    public void setLoans(List<Loan> loans) {
+        this.loans = loans;
     }
 
 }
